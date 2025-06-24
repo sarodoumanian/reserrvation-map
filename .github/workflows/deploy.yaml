@@ -28,6 +28,7 @@ jobs:
             -----END OPENSSH PRIVATE KEY-----
           script: |
             cd /home/ubuntu
-            git pull origin main
+            git clone https://github.com/sarodoumanian/reserrvation-map.git
+            cd reserrvation-map
             npm install
             pm2 restart app || pm2 start server.js --name app
