@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Pool Reservation Map</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icn.png">
+</head>
+<body>
+  <div class="container">
+    <div class="layout-wrapper">
+      <img src="try.jpg" alt="Pool Layout" class="background" />
+      
+      
+      <textarea class="table tableNote" id="table15" style="top: 30%; left: 32%;width: 39%; height: 41%;" placeholder="Notes..." ></textarea>
+      
+      <textarea class="table" id="table1" style="top: 14%; left: 73%;" placeholder="Tb1" ></textarea>
+      <textarea class="table" id="table2" style="top: 24%; left: 73%;" placeholder="Tb2" ></textarea>
+      <textarea class="table" id="table3" style="top: 34%; left: 73%;" placeholder="Tb3" ></textarea>
+      <textarea class="table" id="table4" style="top: 5%; left: 30%;" placeholder="Tb14" ></textarea>
+      <textarea class="table" id="table5" style="top: 5%; left: 10%;" placeholder="Tb15" ></textarea>
+      
+      <textarea class="tableV" id="table6" style="top: 14%; left: 13%;" placeholder="Tb13" ></textarea>
+      <textarea class="tableV" id="table7" style="top: 14%; left: 33%;" placeholder="Tb12" ></textarea>
+      
+      <textarea class="table" id="table16" style="top: 40%; left: 8%;" placeholder="Tb11" ></textarea>
+      <textarea class="table" id="table8" style="top: 50%; left: 8%;" placeholder="Tb10" ></textarea>
+
+      <textarea class="tableS" id="table9" style="top: 76%; left: 9%;" placeholder="Tb6" ></textarea>
+      <textarea class="tableS" id="table10" style="top: 76%; left: 43%;" placeholder="Tb5" ></textarea>
+      <textarea class="tableS" id="table11" style="top: 76%; left: 75%;" placeholder="Tb4" ></textarea>
+
+      
+      <textarea class="table" id="table12" style="top: 90%; left: 12%;" placeholder="Tb9" ></textarea>
+      <textarea class="table" id="table13" style="top: 90%; left: 35%;" placeholder="Tb8" ></textarea>
+      <textarea class="table" id="table14" style="top: 90%; left: 58%;" placeholder="Tb7" ></textarea>
+      <button class="icon-img-btn" onclick="location.reload()">
+        <img src="refresh.png" alt="Refresh" />
+      </button>
+      <button class="save" onclick="saveData()">Save</button>
+
+
+    </div>
+
+    <button class="reset-btn" onclick="confirmReset()">Reset All</button>
+  </div>
+
+  <script>
+     if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('✅ Service worker registered'))
+      .catch(err => console.error('❌ Service worker error', err));
+  }
+    // Load saved data
+    fetch('/data')
+      .then(res => res.json())
+      .then(data => {
+        Object.entries(data).forEach(([id, value]) => {
+          const el = document.getElementById(id);
+          if (el) el.value = value;
+        });
+      });
+  
+  
+    function confirmReset() {
+    if (confirm("Are you sure you want to reset all tables?")) {
+      resetDataOnServer(); // Reset data on the server
+      resetInputs(); // Clear inputs on the client side
+    }
+  }
+
+  function saveData() {
+  const tableData = {};
+
+  // Collect values from all textareas
+  document.querySelectorAll('textarea').forEach((textarea) => {
+    const id = textarea.id;
+    const value = textarea.value.trim();
+    tableData[id] = value; // Save value even if it's empty
+  });
+
+  // Send to backend
+  fetch('/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(tableData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) alert('Data saved!');
+    else alert('Failed to save!');
+  })
+  .catch(err => alert('Error: ' + err.message));
+}
+
+  // Send reset request to the backend
+  function resetDataOnServer() {
+    fetch('/reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        console.log('✅ Data reset successfully on the server');
+      } else {
+        console.error('❌ Failed to reset data on the server');
+      }
+    })
+    .catch(error => {
+      console.error('❌ Error:', error);
+    });
+  }
+
+  // Reset textareas to empty
+  function resetInputs() {
+    const textareas = document.querySelectorAll("textarea");
+    textareas.forEach(el => {
+      el.value = "";
+    });
+  }
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+if (isMobile) {
+  document.querySelectorAll("textarea").forEach(el => {
+    el.addEventListener("blur", () => {
+      setTimeout(() => {
+        // Trick to force visual reset
+        document.body.style.transform = 'scale(1)';
+        document.body.style.transformOrigin = '0 0';
+
+        // Remove it after a short moment to restore natural state
+        setTimeout(() => {
+          document.body.style.transform = '';
+          document.body.style.transformOrigin = '';
+        }, 100);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 200); // Delay needed for mobile keyboard to close first
+    });
+  });
+}
+
+
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(function(reg) {
+      console.log('Service worker registered.');
+
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          console.log("Notification permission granted.");
+        }
+      });
+    });
+}
+</script>
+  </script>
+  
+</body>
+</html>
