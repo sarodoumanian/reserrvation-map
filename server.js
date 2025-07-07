@@ -12,6 +12,7 @@ const telegramBot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: false
 const dataFilePath = path.join(__dirname, 'data.json');
 
 // Middleware to parse JSON
+// Very important
 app.use(express.json());
 app.use(express.static('public')); 
 
