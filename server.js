@@ -17,8 +17,8 @@ app.use(express.static('public'));
 
 const recipients = [
     process.env.TELEGRAM_CHAT_ID,
-    // process.env.TELEGRAM_CHAT_ID_1,
-    // process.env.TELEGRAM_CHAT_ID_2
+    process.env.TELEGRAM_CHAT_ID_1,
+    process.env.TELEGRAM_CHAT_ID_2
   ];
   
   async function sendTelegramAlert(message) {
@@ -42,78 +42,101 @@ app.get('/data', (req, res) => {
 
 
 app.post('/save', (req, res) => {
-    const incomingData = req.body;
-  
-    const expectedKeys = [
-      "table1", "table2", "table3", "table4", "table5",
-      "table6", "table7", "table8", "table9", "table10",
-      "table11", "table12", "table13", "table14", "table15", "table16"
-    ];
-  
-    // Read existing data safely
-    fs.readFile(dataFilePath, 'utf8', (err, data) => {
-      let currentData = {};
-      if (!err && data) {
-        try {
-          currentData = JSON.parse(data);
-        } catch (e) {
-          console.warn("⚠️ Corrupted JSON. Resetting.");
-        }
-      }
-  
-      // Ensure every table key exists, update only the provided ones
-      const newData = {};
-      expectedKeys.forEach(key => {
-        if (incomingData.hasOwnProperty(key)) {
-          newData[key] = incomingData[key];
-        } else {
-          newData[key] = currentData[key] || "";
-        }
-      });
-  
-      // Write back to JSON
-      fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2), (err) => {
-        if (err) {
-          console.error("❌ Write error:", err);
-          return res.status(500).json({ error: 'Failed to save data' });
-        }
-        sendTelegramAlert("New Reservation!")
-        res.json({ success: true });
-      });
-    });
-  });
-  
+  const incomingData = req.body;
 
-app.post('/reset', (req, res) => {
-    const resetData = {
-      "table1": "",
-      "table2": "",
-      "table3": "",
-      "table4": "",
-      "table5": "",
-      "table6": "",
-      "table7": "",
-      "table8": "",
-      "table9": "",
-      "table10": "",
-      "table11": "",
-      "table12": "",
-      "table13": "",
-      "table14": "",
-      "table15": "",
-      "table16": ""
-    };
-  
-    fs.writeFile(dataFilePath, JSON.stringify(resetData, null, 2), (err) => {
-      if (err) {
-        console.error('❌ Failed to reset data file:', err);
-        return res.status(500).json({ error: 'Failed to reset data file' });
+  const expectedKeys = [
+    "table1", "table2", "table3", "table4", "table5",
+    "table6", "table7", "table8", "table9", "table10",
+    "table11", "table12", "table13", "table14", "table15", "table16"
+  ];
+
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    let currentData = {};
+    if (!err && data) {
+      try {
+        currentData = JSON.parse(data);
+      } catch (e) {
+        console.warn("⚠️ Corrupted JSON. Resetting.");
       }
-  
-      console.log('✅ Data file reset successfully');
+    }
+
+    const newData = {};
+    expectedKeys.forEach(key => {
+      const incoming = incomingData[key];
+      if (incoming && typeof incoming === 'object') {
+        newData[key] = {
+          value: incoming.value || "",
+          x: Boolean(incoming.x)
+        };
+      } else {
+        newData[key] = currentData[key] || { value: "", x: false };
+      }
+    });
+
+    fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2), (err) => {
+      if (err) {
+        console.error("❌ Write error:", err);
+        return res.status(500).json({ error: 'Failed to save data' });
+      }
+      sendTelegramAlert("New Reservation!");
       res.json({ success: true });
     });
   });
+});
+
+app.post('/update-checkbox', (req, res) => {
+  const { id, x } = req.body;
+
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('❌ Read error:', err);
+      return res.status(500).json({ error: 'Failed to read file' });
+    }
+
+    let currentData = {};
+    try {
+      currentData = JSON.parse(data || '{}');
+    } catch (e) {
+      console.warn("⚠️ Corrupted JSON. Resetting.");
+    }
+
+    if (currentData[id]) {
+      currentData[id].x = x;
+    }
+
+    fs.writeFile(dataFilePath, JSON.stringify(currentData, null, 2), (err) => {
+      if (err) {
+        console.error('❌ Write error:', err);
+        return res.status(500).json({ error: 'Failed to save checkbox state' });
+      }
+      res.json({ success: true });
+    });
+  });
+});
+
+  
+
+app.post('/reset', (req, res) => {
+  const resetData = {};
+  [
+    "table1", "table2", "table3", "table4", "table5",
+    "table6", "table7", "table8", "table9", "table10",
+    "table11", "table12", "table13", "table14", "table15", "table16"
+  ].forEach(key => {
+    resetData[key] = { value: "", x: false };
+  });
+
+  fs.writeFile(dataFilePath, JSON.stringify(resetData, null, 2), (err) => {
+    if (err) {
+      console.error('❌ Failed to reset data file:', err);
+      return res.status(500).json({ error: 'Failed to reset data file' });
+    }
+
+    console.log('✅ Data file reset successfully');
+    res.json({ success: true });
+  });
+});
+
   
 
 

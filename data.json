@@ -1,18 +1,66 @@
 {
-  "table1": "Gdgd",
-  "table2": "Chdjd",
-  "table3": "Vartan",
-  "table4": "",
-  "table5": "",
-  "table6": "Ff",
-  "table7": "Gkck",
-  "table8": "Sako",
-  "table9": "",
-  "table10": "",
-  "table11": "",
-  "table12": "",
-  "table13": "",
-  "table14": "",
-  "table15": "JUNE 15\n\ntb4 (5 medz 3 bzdig)",
-  "table16": ""
+  "table1": {
+    "value": "",
+    "x": false
+  },
+  "table2": {
+    "value": "",
+    "x": false
+  },
+  "table3": {
+    "value": "",
+    "x": false
+  },
+  "table4": {
+    "value": "",
+    "x": false
+  },
+  "table5": {
+    "value": "",
+    "x": false
+  },
+  "table6": {
+    "value": "",
+    "x": false
+  },
+  "table7": {
+    "value": "",
+    "x": false
+  },
+  "table8": {
+    "value": "",
+    "x": false
+  },
+  "table9": {
+    "value": "",
+    "x": false
+  },
+  "table10": {
+    "value": "",
+    "x": false
+  },
+  "table11": {
+    "value": "",
+    "x": false
+  },
+  "table12": {
+    "value": "",
+    "x": false
+  },
+  "table13": {
+    "value": "",
+    "x": false
+  },
+  "table14": {
+    "value": "",
+    "x": false
+  },
+  "table15": {
+    "value": "",
+    "x": false
+  },
+  "table16": {
+    "value": "",
+    "x": false
+  }
 }

@@ -8,81 +8,214 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" href="/icn.png">
+  <style>
+    .x-checkbox {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      /* width: 20px;
+      height: 20px; */
+      cursor: pointer;
+    }
+
+    .has-x {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'><line x1='0' y1='0' x2='1' y2='1' stroke='rgba(255,0,0,0.8)' stroke-width='0.05'/><line x1='1' y1='0' x2='0' y2='1' stroke='rgba(255,0,0,0.8)' stroke-width='0.05'/></svg>");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="layout-wrapper">
       <img src="try.jpg" alt="Pool Layout" class="background" />
-      
-      
-      <textarea class="table tableNote" id="table15" style="top: 30%; left: 32%;width: 39%; height: 41%;" placeholder="Notes..." ></textarea>
-      
-      <textarea class="table" id="table1" style="top: 14%; left: 73%;" placeholder="Tb1" ></textarea>
-      <textarea class="table" id="table2" style="top: 24%; left: 73%;" placeholder="Tb2" ></textarea>
-      <textarea class="table" id="table3" style="top: 34%; left: 73%;" placeholder="Tb3" ></textarea>
-      <textarea class="table" id="table4" style="top: 5%; left: 30%;" placeholder="Tb14" ></textarea>
-      <textarea class="table" id="table5" style="top: 5%; left: 10%;" placeholder="Tb15" ></textarea>
-      
-      <textarea class="tableV" id="table6" style="top: 14%; left: 13%;" placeholder="Tb13" ></textarea>
-      <textarea class="tableV" id="table7" style="top: 14%; left: 33%;" placeholder="Tb12" ></textarea>
-      
-      <textarea class="table" id="table16" style="top: 40%; left: 8%;" placeholder="Tb11" ></textarea>
-      <textarea class="table" id="table8" style="top: 50%; left: 8%;" placeholder="Tb10" ></textarea>
 
-      <textarea class="tableS" id="table9" style="top: 76%; left: 9%;" placeholder="Tb6" ></textarea>
-      <textarea class="tableS" id="table10" style="top: 76%; left: 43%;" placeholder="Tb5" ></textarea>
-      <textarea class="tableS" id="table11" style="top: 76%; left: 75%;" placeholder="Tb4" ></textarea>
-
+      <!-- Textareas and checkboxes -->
+      <textarea class="table tableNote" id="table15" style="top: 30%; left: 32%; width: 39%; height: 41%;" placeholder="Notes..."></textarea>
       
-      <textarea class="table" id="table12" style="top: 90%; left: 12%;" placeholder="Tb9" ></textarea>
-      <textarea class="table" id="table13" style="top: 90%; left: 35%;" placeholder="Tb8" ></textarea>
-      <textarea class="table" id="table14" style="top: 90%; left: 58%;" placeholder="Tb7" ></textarea>
+
+      <textarea class="table" id="table1" style="top: 14%; left: 73%;" placeholder="Tb1"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table1" style="top: 17%; left: 90%;"/>
+
+      <textarea class="table" id="table2" style="top: 24%; left: 73%;" placeholder="Tb2"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table2" style="top: 27%; left: 90%;"/>
+
+      <textarea class="table" id="table3" style="top: 34%; left: 73%;" placeholder="Tb3"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table3" style="top: 37%; left: 90%;"/>
+
+      <textarea class="table" id="table4" style="top: 5%; left: 30%;" placeholder="Tb14"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table4" style="top: 8%; left: 47%;"/>
+
+      <textarea class="table" id="table5" style="top: 5%; left: 10%;" placeholder="Tb15"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table5" style="top: 8%; left: 27%;"/>
+
+      <textarea class="tableV" id="table6" style="top: 14%; left: 13%;" placeholder="Tb13"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table6" style="top: 19%; left: 24%;"/>
+
+      <textarea class="tableV" id="table7" style="top: 14%; left: 33%;" placeholder="Tb12"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table7" style="top: 19%; left: 44%;"/>
+
+      <textarea class="table" id="table16" style="top: 40%; left: 8%;" placeholder="Tb11"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table16" style="top: 43%; left: 25%;"/>
+
+      <textarea class="table" id="table8" style="top: 50%; left: 8%;" placeholder="Tb10"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table8" style="top: 53%; left: 25%;"/>
+
+      <textarea class="tableS" id="table9" style="top: 76%; left: 9%;" placeholder="Tb6"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table9" style="top: 79%; left: 21%;"/>
+
+      <textarea class="tableS" id="table10" style="top: 76%; left: 43%;" placeholder="Tb5"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table10" style="top: 79%; left: 55%;"/>
+
+      <textarea class="tableS" id="table11" style="top: 76%; left: 75%;" placeholder="Tb4"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table11" style="top: 79%; left: 87%;"/>
+
+      <textarea class="table" id="table12" style="top: 90%; left: 12%;" placeholder="Tb9"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table12" style="top: 93%; left: 28%;"/>
+
+      <textarea class="table" id="table13" style="top: 90%; left: 35%;" placeholder="Tb8"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table13" style="top: 93%; left: 52%;"/>
+
+      <textarea class="table" id="table14" style="top: 90%; left: 58%;" placeholder="Tb7"></textarea>
+      <input type="checkbox" class="x-checkbox" data-for="table14" style="top: 93%; left: 75%;"/>
+
       <button class="icon-img-btn" onclick="location.reload()">
         <img src="refresh.png" alt="Refresh" />
       </button>
       <button class="save" onclick="saveData()">Save</button>
-
-
     </div>
 
     <button class="reset-btn" onclick="confirmReset()">Reset All</button>
   </div>
 
   <script>
-     if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('✅ Service worker registered'))
-      .catch(err => console.error('❌ Service worker error', err));
-  }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('✅ Service worker registered'))
+        .catch(err => console.error('❌ Service worker error', err));
+    }
+
     // Load saved data
     fetch('/data')
       .then(res => res.json())
       .then(data => {
-        Object.entries(data).forEach(([id, value]) => {
-          const el = document.getElementById(id);
-          if (el) el.value = value;
+        Object.entries(data).forEach(([id, entry]) => {
+          const textarea = document.getElementById(id);
+          const checkbox = document.querySelector(`.x-checkbox[data-for="${id}"]`);
+
+          if (textarea && entry) {
+            textarea.value = entry.value || "";
+            if (entry.x) {
+              textarea.classList.add('has-x');
+              if (checkbox) checkbox.checked = true;
+            } else {
+              textarea.classList.remove('has-x');
+              if (checkbox) checkbox.checked = false;
+            }
+          }
         });
       });
-  
-  
-    function confirmReset() {
-    if (confirm("Are you sure you want to reset all tables?")) {
-      resetDataOnServer(); // Reset data on the server
-      resetInputs(); // Clear inputs on the client side
-    }
-  }
 
-  function saveData() {
+document.querySelectorAll('.x-checkbox').forEach(cb => {
+  const textarea = document.getElementById(cb.dataset.for);
+  if (!textarea) return;
+
+  cb.addEventListener('change', function() {
+    // Update UI immediately
+    if (this.checked) {
+      textarea.classList.add('has-x');
+    } else {
+      textarea.classList.remove('has-x');
+    }
+    
+    // Send update to server
+    fetch('/update-checkbox', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        id: this.dataset.for, 
+        x: this.checked 
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (!data.success) {
+        console.error('❌ Failed to save checkbox state');
+        // Revert UI if save failed
+        this.checked = !this.checked;
+        if (this.checked) {
+          textarea.classList.add('has-x');
+        } else {
+          textarea.classList.remove('has-x');
+        }
+      }
+    })
+    .catch(err => {
+      console.error('❌ Network error:', err);
+      // Revert UI on error
+      this.checked = !this.checked;
+      if (this.checked) {
+        textarea.classList.add('has-x');
+      } else {
+        textarea.classList.remove('has-x');
+      }
+    });
+  });
+});
+
+    // ADDED CONFIRM RESET FUNCTION
+    function confirmReset() {
+      if (confirm("Are you sure you want to reset all tables?")) {
+        resetDataOnServer(); // Reset data on the server
+        resetInputs(); // Clear inputs on the client side
+      }
+    }
+
+    function resetDataOnServer() {
+      fetch('/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          console.log('✅ Data reset successfully on the server');
+        } else {
+          console.error('❌ Failed to reset data on the server');
+        }
+      })
+      .catch(error => {
+        console.error('❌ Error:', error);
+      });
+    }
+
+    // UPDATED RESET INPUTS
+    function resetInputs() {
+      document.querySelectorAll("textarea").forEach(el => {
+        el.value = "";
+        el.classList.remove('has-x');
+      });
+      document.querySelectorAll(".x-checkbox").forEach(el => {
+        el.checked = false;
+      });
+    }
+function saveData() {
   const tableData = {};
 
-  // Collect values from all textareas
   document.querySelectorAll('textarea').forEach((textarea) => {
     const id = textarea.id;
     const value = textarea.value.trim();
-    tableData[id] = value; // Save value even if it's empty
+    
+    // Get current checkbox state from UI instead of data.json
+    const checkbox = document.querySelector(`.x-checkbox[data-for="${id}"]`);
+    const xChecked = checkbox ? checkbox.checked : false;
+
+    tableData[id] = {
+      value: value,
+      x: xChecked
+    };
   });
 
-  // Send to backend
   fetch('/save', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -95,72 +228,38 @@
   })
   .catch(err => alert('Error: ' + err.message));
 }
-
-  // Send reset request to the backend
-  function resetDataOnServer() {
-    fetch('/reset', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        console.log('✅ Data reset successfully on the server');
-      } else {
-        console.error('❌ Failed to reset data on the server');
-      }
-    })
-    .catch(error => {
-      console.error('❌ Error:', error);
-    });
-  }
-
-  // Reset textareas to empty
-  function resetInputs() {
-    const textareas = document.querySelectorAll("textarea");
-    textareas.forEach(el => {
-      el.value = "";
-    });
-  }
-
+    // Mobile keyboard adjustment
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      document.querySelectorAll("textarea").forEach(el => {
+        el.addEventListener("blur", () => {
+          setTimeout(() => {
+            document.body.style.transform = 'scale(1)';
+            document.body.style.transformOrigin = '0 0';
 
-if (isMobile) {
-  document.querySelectorAll("textarea").forEach(el => {
-    el.addEventListener("blur", () => {
-      setTimeout(() => {
-        // Trick to force visual reset
-        document.body.style.transform = 'scale(1)';
-        document.body.style.transformOrigin = '0 0';
+            setTimeout(() => {
+              document.body.style.transform = '';
+              document.body.style.transformOrigin = '';
+            }, 100);
 
-        // Remove it after a short moment to restore natural state
-        setTimeout(() => {
-          document.body.style.transform = '';
-          document.body.style.transformOrigin = '';
-        }, 100);
-
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 200); // Delay needed for mobile keyboard to close first
-    });
-  });
-}
-
-
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(function(reg) {
-      console.log('Service worker registered.');
-
-      Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-          console.log("Notification permission granted.");
-        }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 200);
+        });
       });
-    });
-}
-</script>
+    }
+
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(function(reg) {
+          console.log('Service worker registered.');
+
+          Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+              console.log("Notification permission granted.");
+            }
+          });
+        });
+    }
   </script>
-  
 </body>
 </html>
